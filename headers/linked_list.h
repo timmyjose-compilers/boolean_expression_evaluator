@@ -9,9 +9,10 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "scanner.h"
 
   typedef struct Node {
-    char *data;
+    void *data;
     struct Node *prev;
     struct Node *next;
   } Node;
@@ -23,12 +24,26 @@ extern "C" {
 
   LinkedList *ll_init();
   void ll_destroy(LinkedList*);
-  void ll_push_front(LinkedList*, char*);
-  void ll_push_back(LinkedList*, char*);
-  char *ll_pop_front(LinkedList*);
-  char *ll_pop_back(LinkedList*);
+
   bool ll_is_empty(const LinkedList*);
-  void ll_print(const LinkedList*);
+  void ll_print_int(const LinkedList*);
+  void ll_print_string(const LinkedList*);
+  void ll_print_token(const LinkedList*);
+
+  void ll_push_back_int(LinkedList*, int);
+  void ll_push_front_int(LinkedList*, int);
+  int ll_pop_back_int(LinkedList*);
+  int ll_pop_front_int(LinkedList*);
+
+  void ll_push_back_string(LinkedList*, const char*);
+  void ll_push_front_string(LinkedList*, const char*);
+  const char *ll_pop_back_string(LinkedList *);
+  const char *ll_pop_front_string(LinkedList *);
+
+  void ll_push_back_token(LinkedList*, Token*);
+  void ll_push_front_token(LinkedList*, Token*);
+  Token *ll_pop_back_token(LinkedList *);
+  Token *ll_pop_front_token(LinkedList *);
 
 #ifdef __cplusplus
 }

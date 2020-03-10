@@ -12,29 +12,7 @@ extern "C" {
 #include "linked_list.h"
 #include "ast.h"
 
-  typedef enum {
-    IDENTIFIER,
-    BOOLEAN,
-    OPERATOR
-  } TokenType;
-
-  typedef struct {
-    char *name;
-    char *spelling;
-  } Token;
-
-  Token *init_token(const char*, const char*);
-  void destroy_token(Token*);
-
-  typedef struct {
-    char *data;
-  } Scanner;
-
-  Scanner *init_scanner(const char*);
-  void destroy_scanner(Scanner*);
-  LinkedList *scan(Scanner*);
-
-  typedef struct {
+ typedef struct {
     Scanner *scanner;
   } Parser;
 
