@@ -9,21 +9,27 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "char_buffer.h"
 
   struct LinkedList;
+  struct LinkedList *ll_init();
 
   typedef enum {
+    LPAREN,
+    RPAREN,
     IDENTIFIER,
     BOOLEAN,
     OPERATOR
   } TokenType;
 
   typedef struct {
-    char *name;
+    TokenType kind;
     char *spelling;
   } Token;
 
-  Token *init_token(const char*, const char*);
+  void ll_push_back_token(struct LinkedList*, Token*);
+
+  Token *init_token(TokenType, const char*);
   void destroy_token(Token*);
 
   typedef struct {
@@ -31,8 +37,8 @@ extern "C" {
   } Scanner;
 
   Scanner *init_scanner(const char*);
-  void destroy_scanner(const Scanner*);
-  struct LinkedList *scan(Scanner*);
+  void destroy_scanner(Scanner*);
+  struct LinkedList *scanner_scan(Scanner*);
 
 #ifdef __cplusplus
 }

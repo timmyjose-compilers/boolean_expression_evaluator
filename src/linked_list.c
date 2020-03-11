@@ -240,7 +240,7 @@ void ll_print_token(const LinkedList *list)
   while (temp != NULL) {
     Token *data = (Token*)temp->data;
 
-    printf("{ name: %s, spelling: %s }", data->name, data->spelling);
+    printf("{ kind: %d, spelling: %s }", data->kind, data->spelling);
     if (temp != list->tail)
       printf(" -> ");
     temp = temp->next;

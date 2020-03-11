@@ -10,6 +10,7 @@ extern "C" {
 #include <stdio.h>
 
   void *allocate(size_t);
+  void *callocate(size_t);
 
 #ifdef __cplusplus
 }

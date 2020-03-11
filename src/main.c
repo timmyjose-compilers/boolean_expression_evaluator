@@ -6,12 +6,6 @@
 
 int main(int argc, char *argv[])
 {
-  char s[MAX_STR_LEN];
-  char t[MAX_STR_LEN];
-
-  scanf("%[^\n]s", s);
-  scanf(" %[^\n]s", t);
-
   LinkedList *list_int = ll_init();
 
   for (int i = 0; i < 10; i++) {
@@ -32,17 +26,40 @@ int main(int argc, char *argv[])
   ll_destroy(list_string);
 
   LinkedList *list_token = ll_init();
-  Token *lparen = init_token("lparen", "(");
+  Token *lparen = init_token(IDENTIFIER, "(");
   ll_push_back_token(list_token, lparen);
 
-  Token *add = init_token("name", "add");
+  Token *add = init_token(IDENTIFIER, "add");
   ll_push_back_token(list_token, add);
 
-  Token *rparen = init_token("rparen", ")");
+  Token *rparen = init_token(IDENTIFIER, ")");
   ll_push_back_token(list_token, rparen);
 
   ll_print_token(list_token);
   ll_destroy(list_token);
+
+  //char s[MAX_STR_LEN];
+  //scanf("%s", s);
+
+  //Scanner *scanner = init_scanner(s);
+  //LinkedList *tokens = scanner_scan(scanner);
+
+  //ll_print_token(tokens);
+  //destroy_scanner(scanner);
+
+  CharBuffer *cb = init_cb();
+  const char *message = "Hola, Mundo! Como estas?";
+  for (int i = 0; i < strlen(message); i++) {
+    cb_push_back(cb, message[i]);
+  }
+
+  printf("char buffer contents = %s\n", cb->buffer);
+
+  while (!cb_is_empty(cb)) {
+    printf("popping %c\n", cb_pop_back(cb));
+  }
+
+  destroy_cb(cb);
 
   return 0;
 }
