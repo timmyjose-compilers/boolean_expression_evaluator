@@ -1,6 +1,7 @@
 #include "../headers/linked_list.h"
 
 /* Private API */
+
 Node *create_node(void *data)
 {
   Node *node = malloc(sizeof(Node));
@@ -10,8 +11,8 @@ Node *create_node(void *data)
     exit(-1);
   }
 
-  node->data = malloc(sizeof(void*) * strlen(data));
-  strncpy(node->data, data, strlen(data));
+  node->data = malloc(sizeof(void*));
+  node->data = data;
   node->prev = node->next = NULL;
 
   return node;
@@ -118,59 +119,6 @@ bool ll_is_empty(const LinkedList *list)
   return list->head == NULL;
 }
 
-void ll_print_int(const LinkedList *list)
-{
-  if (ll_is_empty(list)) {
-    fprintf(stderr, "list is empty.\n");
-    return;
-  } 
-
-  Node *temp = list->head;
-  while (temp != NULL) {
-    printf("%d", *(int*)temp->data);
-    if (temp != list->tail)
-      printf(" -> ");
-    temp = temp->next;
-  }
-  puts("");
-}
-
-void ll_print_string(const LinkedList *list)
-{
-  if (ll_is_empty(list)) {
-    fprintf(stderr, "list is empty.\n");
-    return;
-  } 
-
-  Node *temp = list->head;
-  while (temp != NULL) {
-    printf("%s", temp->data);
-    if (temp != list->tail)
-      printf(" -> ");
-    temp = temp->next;
-  }
-  puts("");
-}
-
-void ll_print_token(const LinkedList *list)
-{
-  if (ll_is_empty(list)) {
-    fprintf(stderr, "list is empty.\n");
-    return;
-  } 
-
-  Node *temp = list->head;
-  while (temp != NULL) {
-    Token *data = (Token*)temp->data;
-
-    printf("{ name: %s, spelling: %s }", data->name, data->spelling);
-    if (temp != list->tail)
-      printf(" -> ");
-    temp = temp->next;
-  }
-  puts("");
-}
-
 void ll_push_back_int(LinkedList *list, int value)
 {
   int *list_value = malloc(sizeof(int));
@@ -197,6 +145,8 @@ void ll_push_front_int(LinkedList *list, int value)
   ll_push_front(list, (void*)&value);
 }
 
+/* int APISs */
+
 int ll_pop_front_int(LinkedList *list)
 {
   return *(int*)ll_pop_front(list);
@@ -217,6 +167,25 @@ void ll_push_front_string(LinkedList *list, const char *s)
   ll_push_back(list, (void*)s);
 }
 
+void ll_print_int(const LinkedList *list)
+{
+  if (ll_is_empty(list)) {
+    fprintf(stderr, "list is empty.\n");
+    return;
+  } 
+
+  Node *temp = list->head;
+  while (temp != NULL) {
+    printf("%d", *(int*)temp->data);
+    if (temp != list->tail)
+      printf(" -> ");
+    temp = temp->next;
+  }
+  puts("");
+}
+
+/* string APIs */
+
 const char *ll_pop_front_string(LinkedList *list)
 {
   return (const char*)ll_pop_front(list);
@@ -226,6 +195,25 @@ const char *ll_pop_back_string(LinkedList *list)
 {
   return (const char*)ll_pop_back(list);
 }
+
+void ll_print_string(const LinkedList *list)
+{
+  if (ll_is_empty(list)) {
+    fprintf(stderr, "list is empty.\n");
+    return;
+  } 
+
+  Node *temp = list->head;
+  while (temp != NULL) {
+    printf("%s", temp->data);
+    if (temp != list->tail)
+      printf(" -> ");
+    temp = temp->next;
+  }
+  puts("");
+}
+
+/* Token APIs */
 
 void ll_push_back_token(LinkedList *list, Token *t)
 {
@@ -245,4 +233,23 @@ Token *ll_pop_front_token(LinkedList *list)
 Token *ll_pop_back_token(LinkedList *list)
 {
   return (Token*)ll_pop_back(list);
+}
+
+void ll_print_token(const LinkedList *list)
+{
+  if (ll_is_empty(list)) {
+    fprintf(stderr, "list is empty.\n");
+    return;
+  } 
+
+  Node *temp = list->head;
+  while (temp != NULL) {
+    Token *data = (Token*)temp->data;
+
+    printf("{ name: %s, spelling: %s }", data->name, data->spelling);
+    if (temp != list->tail)
+      printf(" -> ");
+    temp = temp->next;
+  }
+  puts("");
 }

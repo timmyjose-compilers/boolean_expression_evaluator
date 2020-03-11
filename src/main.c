@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
   }
 
   ll_print_int(list_int);
-
   ll_destroy(list_int);
 
   LinkedList *list_string = ll_init();
