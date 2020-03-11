@@ -118,3 +118,11 @@ bool cb_is_empty(CharBuffer *cb)
 {
   return cb->len == 0;
 }
+
+char *cb_copy(CharBuffer *cb) 
+{
+  char *buffer = allocate(sizeof(char) * strlen(cb->buffer));
+  strncpy(buffer, cb->buffer, strlen(cb->buffer));
+
+  return buffer;
+}

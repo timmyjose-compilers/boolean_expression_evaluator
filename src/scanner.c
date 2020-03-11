@@ -53,22 +53,23 @@ struct LinkedList *scanner_scan(Scanner *scanner)
 
   int len = strlen((char *)scanner->data);
   int current = 0;
-  char c = scanner->data[current];
 
   while (current < len) {
-    switch (c) {
-      case '(': {
-        Token *token = init_token(LPAREN, "(");
-        ll_push_back_token(tokens, token);
-        current++;
-                }
+    switch (scanner->data[current]) {
+      case '(': 
+        {
+          Token *token = init_token(LPAREN, "(");
+          ll_push_back_token(tokens, token);
+          current++;
+        }
         break;
 
-      case ')': {
-        Token *token = init_token(RPAREN, ")");
-        ll_push_back_token(tokens, token);
-        current++;
-                }
+      case ')': 
+        {
+          Token *token = init_token(RPAREN, ")");
+          ll_push_back_token(tokens, token);
+          current++;
+        }
         break;
 
       case 'a':
@@ -120,8 +121,107 @@ struct LinkedList *scanner_scan(Scanner *scanner)
       case 'W':
       case 'X':
       case 'Y':
-      case 'Z': continue;
-      default: continue;
+      case 'Z': 
+        {
+          CharBuffer *cb = init_cb();
+
+          while (isalpha(scanner->data[current])) {
+            cb_push_back(cb, scanner->data[current++]);
+          }
+
+          ll_push_back_token(tokens, init_token(IDENTIFIER, cb_copy(cb)));
+
+          destroy_cb(cb);
+        } 
+        break;
+
+      case '-': 
+        {
+          CharBuffer *cb = init_cb();
+          cb_push_back(cb, scanner->data[current++]);
+
+          if (scanner->data[current] != '>') {
+            fprintf(stderr, "[Scanner] expected character '>', found character '%c'\n", scanner->data[current]);
+            exit(-3);
+          }
+
+          cb_push_back(cb, scanner->data[current++]);
+          ll_push_back_token(tokens, init_token(OPERATOR, cb_copy(cb)));
+
+          destroy_cb(cb);
+        }
+        break;
+
+      case '!':
+        {
+          CharBuffer *cb = init_cb();
+          cb_push_back(cb, scanner->data[current++]);
+
+          ll_push_back_token(tokens, init_token(OPERATOR, cb_copy(cb)));
+
+          destroy_cb(cb); 
+        }
+        break;
+
+      case '&': 
+        {
+          CharBuffer *cb = init_cb();
+          cb_push_back(cb, scanner->data[current]);
+
+          if (scanner->data[++current] != '&') {
+            fprintf(stderr, "[Scanner] expected character '&', found character '%c'\n", scanner->data[current]);
+            exit(-3);
+          }
+
+          cb_push_back(cb, scanner->data[current++]);
+          ll_push_back_token(tokens, init_token(OPERATOR, cb_copy(cb)));
+
+          destroy_cb(cb);
+        }
+        break;
+      case '|':
+        {
+          CharBuffer *cb = init_cb();
+          cb_push_back(cb, scanner->data[current]);
+
+          if (scanner->data[++current] != '|') {
+            fprintf(stderr, "[Scanner] expected character '|', found character '%c'\n", scanner->data[current]);
+            exit(-3);
+          }
+
+          cb_push_back(cb, scanner->data[current++]);
+          ll_push_back_token(tokens, init_token(OPERATOR, cb_copy(cb)));
+
+          destroy_cb(cb);
+        }
+        break;
+
+      case '^':
+        {
+          CharBuffer *cb = init_cb();
+          cb_push_back(cb, scanner->data[current++]);
+          ll_push_back_token(tokens, init_token(OPERATOR, cb_copy(cb)));
+
+          destroy_cb(cb);
+        }
+        break;
+
+      case ' ':
+      case '\t':
+      case '\n':
+        {
+          while (isspace(scanner->data[current++])) 
+            ;
+          current--;
+        }
+        break;
+
+      default: 
+        {
+          fprintf(stderr, "[Scanner] unexpected character found while scanning: '%c'\n", scanner->data[current]);
+          exit(-3);
+
+        }
     }
   }
 

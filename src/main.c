@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[])
 {
+  printf("linked list test...\n");
   LinkedList *list_int = ll_init();
 
   for (int i = 0; i < 10; i++) {
@@ -38,16 +39,9 @@ int main(int argc, char *argv[])
   ll_print_token(list_token);
   ll_destroy(list_token);
 
-  //char s[MAX_STR_LEN];
-  //scanf("%s", s);
-
-  //Scanner *scanner = init_scanner(s);
-  //LinkedList *tokens = scanner_scan(scanner);
-
-  //ll_print_token(tokens);
-  //destroy_scanner(scanner);
-
   CharBuffer *cb = init_cb();
+  
+  printf("char buffer test...\n");
   const char *message = "Hola, Mundo! Como estas?";
   for (int i = 0; i < strlen(message); i++) {
     cb_push_back(cb, message[i]);
@@ -60,6 +54,17 @@ int main(int argc, char *argv[])
   }
 
   destroy_cb(cb);
+
+  printf("scanner test...\n");
+  char s[MAX_STR_LEN];
+  scanf("%[^\n]s", s);
+
+  printf("Input string is: %s\n", s);
+  Scanner *scanner = init_scanner(s);
+  LinkedList *tokens = scanner_scan(scanner);
+
+  ll_print_token(tokens);
+  destroy_scanner(scanner);
 
   return 0;
 }

@@ -7,6 +7,7 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
+#include <string.h>
 #include "memory.h"
 
   typedef struct {
@@ -25,6 +26,7 @@ extern "C" {
   size_t cb_len(CharBuffer*);
   size_t cb_cap(CharBuffer*);
   bool cb_is_empty(CharBuffer*);
+  char *cb_copy(CharBuffer*);
 
 #ifdef __cplusplus
 }
