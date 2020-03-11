@@ -1,12 +1,19 @@
+#pragma once
+
 #ifndef _AST_H_
 #define _AST_H_
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#include <stdbool.h>
+#include "memory.h"
+
   typedef struct {
     bool value; 
   } Expression;
+
+  void print_expression(Expression*);
 
   typedef struct {
     Expression *left;

@@ -10,15 +10,16 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include "linked_list.h"
+#include "memory.h"
 #include "ast.h"
 
  typedef struct {
-    Scanner *scanner;
+   LinkedList *tokens;
   } Parser;
 
-  Parser *init_parser(const char*);
+  Parser *init_parser(LinkedList*);
   void destroy_parser(Parser*);
-  Expression *parse(Parser*);
+  Expression *parser_parse(Parser*);
 
 #ifdef __cplusplus
 }

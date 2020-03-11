@@ -7,7 +7,8 @@ src_files = src/main.c \
 						src/parser.ca \
 						src/scanner.c \
 						src/memory.c \
-						src/char_buffer.c
+						src/char_buffer.c \
+						src/ast.c
 
 obj_files = main.o \
 						evaluator.o \
@@ -15,7 +16,8 @@ obj_files = main.o \
 						parser.o \
 						scanner.o \
 						memory.o \
-						char_buffer.o
+						char_buffer.o \
+						ast.o
 
 app = beval
 

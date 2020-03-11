@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
   destroy_cb(cb);
 
-  printf("scanner test...\n");
+  printf("Evaluator test...\n");
   char s[MAX_STR_LEN];
   scanf("%[^\n]s", s);
 
@@ -64,7 +64,14 @@ int main(int argc, char *argv[])
   LinkedList *tokens = scanner_scan(scanner);
 
   ll_print_token(tokens);
+
+  Parser *parser = init_parser(tokens);
+  Expression *expr = parser_parse(parser);
+
+  print_expression(expr);
+
   destroy_scanner(scanner);
+  destroy_parser(parser);
 
   return 0;
 }
