@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _FORWARD_H__
-#define _FORWARD_H__
+#ifndef _SCANNER_H_
+#define _SCANNER_H_
 #ifdef __cplusplus
 extern "C" {
 #endif
