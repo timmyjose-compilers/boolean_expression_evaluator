@@ -10,6 +10,7 @@ extern "C" {
 #include <string.h>
 #include <stdbool.h>
 #include "scanner.h"
+#include "memory.h"
 
   typedef struct Node {
     void *data;

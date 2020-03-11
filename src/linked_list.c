@@ -4,14 +4,8 @@
 
 Node *create_node(void *data)
 {
-  Node *node = malloc(sizeof(Node));
-
-  if (node == NULL) {
-    fprintf(stderr, "Could not create linked list node. Allocator returned NULL.\n");
-    exit(-1);
-  }
-
-  node->data = malloc(sizeof(void*));
+  Node *node = (Node*)allocate(sizeof(Node));
+  node->data = (void*)allocate(sizeof(void*));
   node->data = data;
   node->prev = node->next = NULL;
 
@@ -51,7 +45,7 @@ void *ll_pop_front(LinkedList *list)
     exit(-2);
   }
 
-  void *data = malloc(sizeof(void) * strlen(list->head->data));
+  void *data = (void*)allocate(sizeof(void*) * strlen(list->head->data));
   strncpy(data, list->head->data, strlen(list->head->data));
 
   Node *head = list->head;
@@ -73,7 +67,7 @@ void *ll_pop_back(LinkedList *list)
     exit(-2);
   }
 
-  void *data = malloc(sizeof(void) * strlen(list->tail->data));
+  void *data = (void*)allocate(sizeof(void) * strlen(list->tail->data));
   strncpy(data, list->tail->data, strlen(list->tail->data));
 
   Node *tail = list->tail;
@@ -92,7 +86,7 @@ void *ll_pop_back(LinkedList *list)
 
 LinkedList *ll_init()
 {
-  LinkedList *list = malloc(sizeof(LinkedList));
+  LinkedList *list = (LinkedList*)allocate(sizeof(LinkedList));
 
   if (list == NULL) {
     fprintf(stderr, "Could not create linked list. Allocator returned NULL.\n");
@@ -121,7 +115,7 @@ bool ll_is_empty(const LinkedList *list)
 
 void ll_push_back_int(LinkedList *list, int value)
 {
-  int *list_value = malloc(sizeof(int));
+  int *list_value = (int*)allocate(sizeof(int));
 
   if (list_value == NULL) {
     fprintf(stderr, "Could not allocate memory for int value - allocator returned NULL.\n");
@@ -134,7 +128,7 @@ void ll_push_back_int(LinkedList *list, int value)
 
 void ll_push_front_int(LinkedList *list, int value)
 {
-  int *list_value = malloc(sizeof(int));
+  int *list_value = (int*)allocate(sizeof(int));
 
   if (list_value == NULL) {
     fprintf(stderr, "Could not allocate memory for int value - allocator returned NULL.\n");

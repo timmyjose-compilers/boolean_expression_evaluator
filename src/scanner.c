@@ -26,3 +26,9 @@ void destroy_token(Token *token)
     free(token);
   }
 }
+
+struct LinkedList *scan()
+{
+  return NULL;
+
+}
